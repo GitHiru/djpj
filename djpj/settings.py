@@ -3,7 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False #edit
+DEBUG = True #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -124,6 +124,7 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
+SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
 '''
     # from storages.backends.s3boto3 import S3Boto3Storage
     # def MediaRootS3BotoStorage(): return S3Boto3Storage(location='media')

@@ -1,0 +1,18 @@
+{#<!-- pagination section -->#}
+<div class="pager-area l-wrap">
+    <div class="l-panel">
+        {% if is_paginated %}
+        <ul class="pager-list">
+            {% for num in paginator.page_range|slice:":4" %}
+            {% if page_obj.number == num %}
+            <li class="page-num is-active"><span>{{ num }}</span></li>
+            {% else %}
+            <li class="page-num"><a href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="pager-list"><li class="page-num"><span>0</span></li></ul>
+        {% endif %}
+    </div>{#<!-- .l-panel // -->#}
+</div>{#<!-- .l-wrap // -->#}

@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lamg="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <title>{% block title %}djpj{% endblock %}</title>
+    {#<!-- [meta] -->#}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="{% block descriotion %}{% endblock %}">
+    <meta name="keywords" content="{% for tag in tags.all %}{{ tag.name }},{% empty %}{% endfor %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {#<!-- OGP -->#}
+    <meta property="og:url" content="https://djpj.jp">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ post.title }}">
+    <meta property="og:description" content="{{ post.description }}">
+    <meta property="og:site_name" content="djpj">
+    <meta property="og:image" content="https://djpj.jp{{ post.image.url }}">
+    <meta name="twitter:card" content="Summary Card" />
+    <meta name="twitter:site" content="{@ツイッターユーザー名}" />
+    {#<!-- [link] -->#}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'diary/img/favicon.ico' %}">
+    <link rel="icon" href="{% static 'diary/img/icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'diary/img/icon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'diary/img/icon.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'diary/img/icon.png' %}">
+    {#<!-- css -->#}
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'diary/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'diary/css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'diary/css/common/drawer.css' %}">
+    <link rel="stylesheet" href="{% static 'diary/css/common/loading.css' %}">
+    {#<!-- detail css -->#}
+    <link rel="stylesheet" href="{% static 'diary/css/details.css' %}">
+    {#<!-- 404 css -->#}
+    <!-- <link rel="stylesheet" href="{% static 'diary/css/404.css' %}"> -->
+    {#<!-- about css -->#}
+    <!-- <link rel="stylesheet" href="{% static 'diary/css/about.css' %}"> -->
+    {#<!-- Google Tag Manager -->#}
+    {#<!-- End Google Tag Manager -->#}
+</head>
+<body class="drawer drawer--right">
+    {#<!-- Google Tag Manager (noscript) -->#}
+    {#<!-- End Google Tag Manager (noscript) -->#}
+
+    {#<!-- loading animation -->#}
+    <div id="Loading">
+        <div id="load">
+            <div>G</div>
+            <div>N</div>
+            <div>I</div>
+            <div>D</div>
+            <div>A</div>
+            <div>O</div>
+            <div>L</div>
+        </div>
+    </div>
+
+    {#<!-- contents -->#}
+    <div class="l-page-wrapper">
+        <div id="page" class="l-page">
+
+            {#<!-- contents sections -->#}
+            <div class="page-inner">
+
+                {#<!-- header section-->#}
+                <div class="l-page__header">
+                    <header id="Header">
+                        <div class="inner cf">
+                            {#<!-- logo -->#}
+                            <p class="logo"><a href="/"><img src="{% static 'diary/img/logo.png' %}" alt="djpj"></a></p>
+                            {#<!-- hunberger -->#}
+                            <p class="menu"><a class="menu-trigger drawer-toggle drawer-hamburger" id="menu-trigger12" href="#"><span></span><span></span><span></span></a></p>
+                            {#<!-- navigation section -->#}
+                            <nav class="drawer-nav">
+                                <ul class="drawer-menu">
+                                    {#<!-- Search -->#}
+                                    <li class="search">
+                                        <form action="{% url 'diary:search_post' %}" method="GET">
+                                          <input class="search" type="text" name="q" value="{{ request.GET.q }}" placeholder="Free word Search" aria-label="Search"> <input type="submit" class="search_btn" value="">
+                                        </form>
+                                    </li>
+                                    {#<!-- Category -->#}
+                                    {% for category in categories|dictsortreversed:"num_posts"|slice:":5" %}
+                                    <li>
+                                        <a href="{% url 'diary:category_post' category.slug %}">{{ category.name }} ({{ category.num_posts }})</a>
+                                    </li>
+                                    {% empty %}
+                                    <li><a href="/">カテゴリはありません。</a></li>
+                                    {% endfor %}
+                                    {#<!-- About -->#}
+                                    <!-- <li class="about"><a href="/">About</a></li> -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </header>
+                </div>{#<!-- .l-page__header // -->#}
+
+                {#<!-- ************************ -->#}
+                {% block content %}{% endblock %}
+                {#<!-- ************************ -->#}
+
+            </div>{#<!-- .page-inner // -->#}
+
+            {#<!-- footer section -->#}
+            <div class="l-page__footer">
+                <footer id="Fotter">
+                    <div class="inner cf">
+                        <p class="logo"><a href="/"><img src="{% static 'diary/img/logo.png' %}" alt="djpj"></a></p>
+                        <div class="link">
+                            <ul class="sns account">
+                                {#<!-- facebook -->#}
+                                <!-- <li class="snsicon"><a href="https://www.facebook.com/" alt="" target="_blank"><i class="fab fa-fw fa-facebook-f"></i></a></li> -->
+                                {#<!-- twitter -->#}
+                                <li class="snsicon">
+                                    <a href="https://twitter.com/" alt="" target="_blank">
+                                        <i class="fab fa-fw fa-twitter"></i>
+                                    </a>
+                                </li>
+                                {#<!-- github -->#}
+                                <li class="snsicon">
+                                    <a href="" alt="" target="_blank">
+                                        <i class="fab fa-fw fa-github"></i>
+                                    </a>
+                                </li>
+                                {#<!-- kaggle -->#}
+                                <li class="snsicon">
+                                    <a href="" alt="" target="_blank">
+                                        <i class="fab fa-fw fa-kaggle"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <p class="copy">&copy; 2020 djpj</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>{#<!-- .l-page__footer // -->#}
+
+        </div>{#<!-- .l-page // -->#}
+    </div>{#<!-- .l-page-wrapper // -->#}
+
+    {#<!-- [script] -->#}
+    <script src="{% static 'diary/js/vendor.js' %}"></script>
+    <script src="{% static 'diary/js/common.js' %}"></script>
+    <script src="{% static 'diary/js/common/imagesloaded.js' %}"></script>
+    <script src="{% static 'diary/js/common/iscroll.js' %}"></script>{#<!-- スクロールー調整-->#}
+    <script src="{% static 'diary/js/common/drawer.min.js' %}"></script>{#<!-- ドロワー調整-->#}
+    <script src="{% static 'diary/js/common/heightLine.js' %}"></script>{#<!-- 高さ調整-->#}
+    {#<!-- detials script  (シンタックスハイライト)-->#}
+    <script type="text/javascript" src="{% static 'diary/js/sh/shCore.js' %}"></script>
+    <script type="text/javascript" src="{% static 'diary/js/sh/shBrushBash.js' %}"></script>
+    <script type="text/javascript" src="{% static 'diary/js/sh/shAutoloader.js' %}"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            function path() {
+                var args = arguments,
+                result = [];
+                for (var i = 0; i < args.length; i++) result.push(args[i].replace('@', '{% static 'diary/js/sh/' %}'));
+                return result
+            };
+            SyntaxHighlighter.autoloader.apply(null, path('applescript@shBrushAppleScript.js', 'actionscript3as3@shBrushAS3.js', 'bash shell             @shBrushBash.js', 'coldfusion cf          @shBrushColdFusion.js', 'cpp c                  @shBrushCpp.js', 'c# c-sharp csharp      @shBrushCSharp.js', 'css                    @shBrushCss.js', 'delphi pascal          @shBrushDelphi.js', 'diff patch pas         @shBrushDiff.js', 'erl erlang             @shBrushErlang.js', 'groovy                 @shBrushGroovy.js', 'java                   @shBrushJava.js', 'jfx javafx             @shBrushJavaFX.js', 'js jscript javascript  @shBrushJScript.js', 'perl pl                @shBrushPerl.js', 'php                    @shBrushPhp.js', 'text plain             @shBrushPlain.js', 'py python              @shBrushPython.js', 'ruby rails ror rb      @shBrushRuby.js', 'sass scss              @shBrushSass.js', 'scala                  @shBrushScala.js', 'sql                    @shBrushSql.js', 'vb vbnet               @shBrushVb.js', 'xml xhtml xslt html    @shBrushXml.js'));
+            SyntaxHighlighter.all();
+        });
+    </script>
+    <link type="text/css" rel="stylesheet" href="{% static 'diary/js/sh/shCore.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'diary/js/sh/shThemeMidnight.css' %}" />
+</body>
+</html>

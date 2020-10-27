@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title}} | {{ block.super }}{% endblock %}
+{% block description %}{% endblock %}
+{% block content%}
+{# <!-- 投稿記事 --> #}
+
+{# <!-- main sections --> #}
+<main class="main-area l-wrap">
+
+    <div class="l-panel l-panel--mv">
+        <div class="l-panel__item l-panel__item--large">
+            <article class="m-card m-card--large">
+                <div class="m-card__body">
+                    <h1 class="hdg">{{ object.title }}</h1>
+                    <p class="date">
+                        <i class="fas fa-clock"></i> {{ object.published_at|date }}
+                        <span>/</span>
+                        <i class="fas fa-folder"></i> {{ object.category.name }}
+                    </p>
+                </div>
+                <div class="m-card__img">
+                    <span class="img__bg" style="background-image:url({{ post.image.url }})"></span>
+                </div>
+            </article>{# <!-- .m-card // --> #}
+        </div>{# <!-- .l-panel__item // --> #}
+    </div>{# <!-- .l-panel // --> #}
+
+    {# <!-- bread SNS index --> #}
+    <div class="detail l-wrap">
+        <div class="l-panel">
+            <div class="content inner">
+
+                {# <!-- パンクズリスト --> #}
+                <div class="l-breadcrumbs">
+                    <a href="/"><i class="fas fa-home"></i>djpj</a> ＞
+                    <a href="/category/{{ object.category.slug }}"><i class="fas fa-folder"></i> {{ object.category.name }}</a> ＞
+                    <span class="title"><i class="fas fa-sticky-note"></i> {{ object.title }}<span>
+                </div>
+
+                {% include "diary/snippets/sns.html" %}
+
+                {# <!-- 記事導入（description） --> #}
+                <div class="sec"><p>{{ object.description }}</p></div>
+
+            </div>{# <!-- .inner // --> #}
+        </div>{# <!-- .l-panel // --> #}
+    </div>{# <!-- .l-wrap // --> #}
+
+     {# 広告 {% include "diary/snippets/ad.html" %} #}
+
+    {# <!-- post contents --> #}
+    <div class="detail l-wrap">
+        <div class="l-panel">
+            <div class="content inner">
+
+                {{ object.content|safe }}
+
+                {% include "diary/snippets/sns.html" %}
+
+                <div class="tag">
+                    <ul class="cp_tag">
+                        {% for tag in object.tags.all %}
+                        <li><a href="{% url 'diary:tag_post' tag.slug %}">#{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>{# <!-- .inner // --> #}
+        </div>{# <!-- .l-panel // --> #}
+    </div>{# <!-- .l-wrap // --> #}
+
+     {# 広告 {% include "diary/snippets/ad.html" %} #}
+
+    {# <!-- post recommend --> #}
+    <div class="l-wrap recomend">
+        <h4 class="hdg">Recommend</h4>
+        <div class="l-panel">
+            {% for post in object_list|slice:"1:" %}
+            {% if user.is_authenticated or post.is_public %}
+            <div class="l-panel__item heightLine">
+                <article class="m-card">
+                    <a href="{% url 'diary:post_detail' post.id %}">
+                        {% if post.image %}
+                        <div class="m-card__img">
+                            <span class="img__bg" style="background-image:url({{ post.image.url }})"></span>
+                        </div>
+                        {% endif %}
+                        <div class="m-card__body">
+                            <p class="date">
+                                <i class="fas fa-clock"></i> {{ post.published_at|date }}<span>/</span>
+                                <i class="fas fa-folder"></i> {{ post.category.name }}</p>
+                            <h3 class="hdg">{% if not post.is_public %}[下書き] {% endif %}{{ post.title }}</h3>
+                            <p class="detail u-img--pc">{{ post.description }}</p>
+                        </div>
+                    </a>
+                </article>
+            </div>{#<!-- .l-panel__item // -->#}
+            {% endif %}
+            {% empty %}
+            <div class="l-panel__item heightLine">
+                <article class="m-card">
+                    <div class="m-card__body">
+                        <h3>Comeing soon...</h3>
+                    </div>{#<!-- .m-card__body // -->#}
+                </article>{#<!-- .m-card // -->#}
+            </div>{#<!-- .l-panel__item // -->#}
+            {% endfor %}
+
+        </div>{# <!-- .l-panel // --> #}
+
+    </div>{# <!-- .l-wrap // --> #}
+
+</main>{# <!-- .main-area // --> #}
+
+{% endblock%}

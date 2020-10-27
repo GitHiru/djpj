@@ -1,0 +1,15 @@
+{#<!-- SNSシェア -->#}
+<div class="sns">
+    <ul class="sns-list">
+        {#<!-- Twitter -->#}
+        <li class="tw">
+            <a id="ga-list-twitter-share" class="twitter btn" href="http://twitter.com/share?url=http://www.root.com/{% url 'diary:post_detail' post.id %}&amp;text={{ object.title }}&amp;via=&amp;related=" target="_blank" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;">Twitter</a>
+        </li>
+        {#<!-- Facebook -->#}
+        <li class="fb">
+            <a id="ga-list-fb-share" class="fb btn" href="http://www.facebook.com/share.php?u=http://www.root.com/{% url 'diary:post_detail' post.id%}" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;">Facebook</a>
+        </li>
+        {#<!-- RSS -->#}
+        <li class="rss"><a href="/latest/feed/">RSS</a></li>
+    </ul>
+</div>

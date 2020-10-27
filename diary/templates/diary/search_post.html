@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{% if query %}{{ query }}{% endif %} | {{ block.super }}{% endblock %}
+{% block description %}検索ワード「{% if query %}{{ query }}{% endif %}」での検索結果ページです。{% endblock %}
+{% block content %}
+{# <!-- 検索結果別（投稿一覧） --> #}
+
+{#<!-- 検索結果 -->#}
+<div class="main-area l-wrap">
+「{% if query %}{{ query }}{% endif %}」の検索結果 {{ page_obj.start_index }}-{{ page_obj.end_index }}件（{{ paginator.count }}件）
+</div>
+
+{% include "diary/snippets/list_detail.html" %}
+
+{% endblock %}

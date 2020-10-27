@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}「#{{ tag.name }}」の投稿一覧 | {{ block.super }}{% endblock %}
+{% block description %}{% endblock %}
+{% block content %}
+{# <!-- タグ別（投稿一覧） --> #}
+
+{% include "diary/snippets/list_detail.html" %}
+
+{% endblock %}

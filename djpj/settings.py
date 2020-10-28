@@ -3,9 +3,9 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False #edit
-# DEBUG = True #add:test
-# SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
+# DEBUG = False #edit
+DEBUG = True #add:test
+SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
 
 ALLOWED_HOSTS = ['*'] #edit
 

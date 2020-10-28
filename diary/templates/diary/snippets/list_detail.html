@@ -49,8 +49,10 @@
                         {% endif %}
                         <div class="m-card__body">
                             <p class="date">
-                                <i class="fas fa-clock"></i> {{ post.published_at|date }}<span>/</span>
-                                <i class="fas fa-folder"></i> {{ post.category.name }}</p>
+                                <i class="fas fa-clock"></i> {{ post.published_at|date }}
+                                <span>/</span>
+                                <i class="fas fa-folder"></i> {{ post.category.name }}
+                            </p>
                             <h3 class="hdg">{% if not post.is_public %}[下書き] {% endif %}{{ post.title }}</h3>
                             <p class="detail u-img--pc">{{ post.description }}</p>
                         </div>

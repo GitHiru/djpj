@@ -3,7 +3,9 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True #edit
+# DEBUG = False #edit
+DEBUG = True #add:test
+SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -123,40 +125,44 @@ if not DEBUG:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     import django_heroku
     django_heroku.settings(locals())
-
-SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
 '''
-    # from storages.backends.s3boto3 import S3Boto3Storage
-    # def MediaRootS3BotoStorage(): return S3Boto3Storage(location='media')
-    # def StaticRootS3BotoStorage(): return S3Boto3Storage(location='static')
-
-    # collectstaic時にS3を使う
-    # DEFAULT_FILE_STORAGE = 'MediaRootS3BotoStorage' #ファイルアップロードでS3へ
-    DEFAULT_FILE_STORAGE = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
-    # STATICFILES_STORAGE = 'StaticRootS3BotoStorage' #colectstaticでS3へ
-    STATICFILES_STORAGE = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
-
+    # add: AWS S3
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
+    # collectstaic時にS3を使う
+    DEFAULT_FILE_STORAGE = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
+    STATICFILES_STORAGE  = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
+    # S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
+    AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    MEDIA_URL  = 'https://%s/%s/' % (AWS_S3_URL, 'media')
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_URL, 'static')
+
     AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-    AWS_QUERYSTRING_AUTH = False # URLからクエリパラメータを削除
-    AWS_PRELOAD_METADATA = True # これをTrueにしたほうがファイル変更のチェックが速くなる
+    AWS_DEFAULT_ACL       = None
+    AWS_QUERYSTRING_AUTH  = False # URLからクエリパラメータを削除
+    AWS_PRELOAD_METADATA  = True # これをTrueにしたほうがファイル変更のチェックが速くなる
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',  # キャッシュの有効期限（最長期間）= 1日
     }
-
-    # S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
-    AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_URL, 'media')
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_URL, 'static')
 '''
+
 
 
 #add: database
 import dj_database_url #add
 db_from_env = dj_database_url.config(conn_max_age=500, ssl_require=True)
 DATABASES['default'].update(db_from_env)
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+# SSL #add:original-domain
+# CORS_REPLACE_HTTPS_REFERER = True
+# HOST_SCHEME = "https://"
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_SECONDS = 1000000
+# SECURE_FRAME_DENY = True

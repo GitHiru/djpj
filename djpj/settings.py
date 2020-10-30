@@ -3,8 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# DEBUG = False #edit
-DEBUG = True #add:test
+DEBUG = False #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -119,33 +118,33 @@ try:
 except ImportError:
     pass
 
-if DEBUG:
-# if not DEBUG:
+if not DEBUG:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     import django_heroku
     django_heroku.settings(locals())
 
+# ローカルでもS3使用
+# add: AWS S3
+AWS_ACCESS_KEY_ID       = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY   = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-    # add: AWS S3
-    AWS_ACCESS_KEY_ID       = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY   = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+from storages.backends.s3boto3 import S3Boto3Storage
+def MediaRootS3BotoStorage():
+    return S3Boto3Storage(location='media')
+DEFAULT_FILE_STORAGE = 'djpj.MediaRootS3BotoStorage' #collectstaic時ファイルアップロードでS3へ
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage' #collectstaic時ファイルアップロードでS3へ
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    MEDIA_URL = S3_URL
+#S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
+AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL  = 'https://%s/%s/' % (AWS_S3_URL, 'media')
 
-    #S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
-    # AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-    # MEDIA_URL  = 'https://%s/%s/' % (AWS_S3_URL, 'media')
-
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL       = None
-    AWS_QUERYSTRING_AUTH  = False # URLからクエリパラメータを削除
-    AWS_PRELOAD_METADATA  = True # これをTrueにしたほうがファイル変更のチェックが速くなる
-    AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',  # キャッシュの有効期限（最長期間）= 1日
-    }
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL       = None
+AWS_QUERYSTRING_AUTH  = False # URLからクエリパラメータを削除
+AWS_PRELOAD_METADATA  = True # これをTrueにしたほうがファイル変更のチェックが速くなる
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',  # キャッシュの有効期限（最長期間）= 1日
+}
 
 
 #add: database

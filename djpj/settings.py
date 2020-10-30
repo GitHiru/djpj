@@ -108,7 +108,6 @@ STATIC_DIRS = [
     ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA_URL   = '/media/' #メディアファイル配信URL
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
 
 
@@ -123,29 +122,11 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
-# ローカルでもS3使用
-# add: AWS S3
-AWS_ACCESS_KEY_ID       = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY   = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-from storages.backends.s3boto3 import S3Boto3Storage
-def MediaRootS3BotoStorage():
-    return S3Boto3Storage(location='media')
-DEFAULT_FILE_STORAGE = 'djpj.MediaRootS3BotoStorage' #collectstaic時ファイルアップロードでS3へ
+#add:AWS S3 ローカルでもS3使用
+from djpj.aws.conf import *
 
-#S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
-AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-MEDIA_URL  = 'https://%s/%s/' % (AWS_S3_URL, 'media')
-
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL       = None
-AWS_QUERYSTRING_AUTH  = False # URLからクエリパラメータを削除
-AWS_PRELOAD_METADATA  = True # これをTrueにしたほうがファイル変更のチェックが速くなる
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',  # キャッシュの有効期限（最長期間）= 1日
-}
-
+# MEDIA_URL   = '/media/' #メディアファイル配信URL
 
 #add: database
 import dj_database_url #add

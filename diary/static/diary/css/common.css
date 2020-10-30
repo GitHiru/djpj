@@ -496,7 +496,7 @@
 }
 .l-wrap .l-panel.l-panel--mv .l-panel__item .m-card .m-card__body .date{
     display: block;
-    width: 350px;
+    width: 400px;
     line-height: 40px;
     border-bottom: 1px solid;
     backface-visibility: hidden;

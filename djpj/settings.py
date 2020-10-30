@@ -3,9 +3,9 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# DEBUG = False #edit
-DEBUG = True #add:test
-SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
+DEBUG = False #edit
+# DEBUG = True #add:test
+# SECRET_KEY = os.environ.get('SECRET_KEY') #add:test
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -50,7 +50,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'djpj.context_processors.common', #add
+                'djpj.context_processors.common', #add:djpj/context_processors.py
             ],
         },
     },
@@ -103,19 +103,17 @@ USE_TZ        = True
 
 # Staticfiles (CSS, JavaScript, Images)
 # 🔗https://docs.djangoproject.com/en/3.1/howto/static-files/
-MEDIA_URL   = '/media/' #メディアファイル配信URL
-MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
-
 STATIC_URL  = '/static/' #静的ファイル配信URL
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #collectstatic時の静的ファイル保存先
 STATIC_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     ]
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
 
-# django-herokuの実行を追加 #add
+
+# 本番とローカルの切替 #add:django-heroku
 try:
     from .settings_local import *
 except ImportError:
@@ -125,19 +123,19 @@ if not DEBUG:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     import django_heroku
     django_heroku.settings(locals())
-'''
+
     # add: AWS S3
+    from storages.backends.s3boto3 import S3Boto3Storage
+    def MediaRootS3BotoStorage(): return S3Boto3Storage(location='media')
+    DEFAULT_FILE_STORAGE = 'djpj.aws.utils.MediaRootS3BotoStorage' #collectstaic時ファイルアップロードでS3へ
+
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
-    # collectstaic時にS3を使う
-    DEFAULT_FILE_STORAGE = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
-    STATICFILES_STORAGE  = 'storage.backends.s3boto3.S3Boto3Storage' #ファイルアップロードでS3へ
-    # S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
+    #S3バケットのURL（サブドメインのURLを使ってもどちらでも◎）
     AWS_S3_URL = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     MEDIA_URL  = 'https://%s/%s/' % (AWS_S3_URL, 'media')
-    STATIC_URL = 'https://%s/%s/' % (AWS_S3_URL, 'static')
 
     AWS_S3_FILE_OVERWRITE = False
     AWS_DEFAULT_ACL       = None
@@ -146,8 +144,8 @@ if not DEBUG:
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',  # キャッシュの有効期限（最長期間）= 1日
     }
-'''
-
+else:
+    MEDIA_URL   = '/media/' #メディアファイル配信URL
 
 
 #add: database

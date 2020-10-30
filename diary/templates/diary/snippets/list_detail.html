@@ -2,8 +2,8 @@
 <div class="main-area l-wrap">
     <div class="l-panel l-panel--mv">
 
-        {% for post in object_list|slice:":1" %}
         {% if user.is_authenticated or post.is_public %}
+        {% for post in object_list|slice:":1" %}
         <div class="l-panel__item l-panel__item--large">
             <article class="m-card m-card--large">
                 <a href="{% url 'diary:post_detail' post.id %}">
@@ -21,8 +21,28 @@
                 </a>
             </article>
         </div>{#<!-- .l-panel__item // -->#}
-        {% endif %}
         {% endfor %}
+        {% else %}
+        {% for post in object_list|slice:"1:2" %}
+        <div class="l-panel__item l-panel__item--large">
+            <article class="m-card m-card--large">
+                <a href="{% url 'diary:post_detail' post.id %}">
+                    <div class="m-card__img">
+                        <span class="img__bg" style="background-image:url({{ post.image.url }})"></span>
+                    </div>
+                    <div class="m-card__body">
+                        <p class="date">
+                            <i class="fas fa-clock"></i> {{ post.published_at|date }}
+                            <span>/</span>
+                            <i class="fas fa-folder"></i> {{ post.category.name }}
+                        </p>
+                        <h3 class="hdg">{% if not post.is_public %}[下書き] {% endif %}{{ post.title }}</h3>
+                    </div>
+                </a>
+            </article>
+        </div>{#<!-- .l-panel__item // -->#}
+        {% endfor %}
+        {% endif %}
 
     </div>{#<!-- .l-panel // -->#}
 </div>{#<!-- .main-area // -->#}

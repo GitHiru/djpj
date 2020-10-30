@@ -16,7 +16,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'slug', 'timestamp')
 
-
+#add:edit_admin
+admin.site.site_title  = 'djpj'
+admin.site.site_header = 'djpj - 管理画面'
+admin.site.index_title = 'メニュー'
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)

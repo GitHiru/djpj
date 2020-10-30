@@ -21,6 +21,7 @@ from .feeds import LatestPostsFeed #add:feed(rss)
 from django.contrib.sitemaps.views import sitemap #add:sitemap
 from .sitemaps import DiaryPostSitemap, StaticViewSitemap #add:sitemap
 
+#add:sitemap
 sitemaps = {
     'diary': DiaryPostSitemap,
     'static': StaticViewSitemap,
@@ -28,10 +29,13 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('diary.urls')), #add
+    path('', include('diary.urls')), #add:app
     path('latest/feed/', LatestPostsFeed()), #add:feed(rss)
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'), #add:sitemap
 ]
 
+#add:media
 if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

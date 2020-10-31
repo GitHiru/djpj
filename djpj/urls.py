@@ -36,5 +36,5 @@ urlpatterns = [
 
 #add:media
 # https://docs.djangoproject.com/ja/2.2/howto/static-files/#serving-files-uploaded-by-a-user-during-development
-if settings.DEBUG: # =True
+if not settings.DEBUG: # =True
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

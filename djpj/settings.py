@@ -3,7 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True #edit
+DEBUG = False #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 

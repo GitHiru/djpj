@@ -122,11 +122,10 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
-
 #add:AWS S3 ローカルでもS3使用
 from djpj.aws.conf import *
-
-# MEDIA_URL   = '/media/' #メディアファイル配信URL
+# else:
+#     MEDIA_URL   = '/media/' #メディアファイル配信URL
 
 #add: database
 import dj_database_url #add

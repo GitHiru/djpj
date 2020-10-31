@@ -3,7 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False #edit
+DEBUG = True #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -123,9 +123,9 @@ if not DEBUG:
     django_heroku.settings(locals())
 
 #add:AWS S3 ローカルでもS3使用
-from djpj.aws.conf import *
-# else:
-#     MEDIA_URL   = '/media/' #メディアファイル配信URL
+# from djpj.aws.conf import *
+
+MEDIA_URL   = '/media/' #メディアファイル配信URL
 
 #add: database
 import dj_database_url #add

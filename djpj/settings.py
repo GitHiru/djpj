@@ -106,7 +106,7 @@ STATIC_URL  = '/static/' #静的ファイル配信URL
 STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
 

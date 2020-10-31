@@ -101,11 +101,11 @@ USE_TZ        = True
 
 # Staticfiles (CSS, JavaScript, Images)
 # 🔗https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_URL  = '/static/' #静的ファイル配信URL
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #collectstatic時の静的ファイル保存先
-STATIC_DIRS = [
+STATIC_URL  = '/static/' #静的ファイル配信URL
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    ]
+    )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先

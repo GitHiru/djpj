@@ -10,8 +10,6 @@ db.sqlite3
 
 
 ### media ###
-staticfiles/
-staticfiles
 media_root/
 media_root
 post_images/

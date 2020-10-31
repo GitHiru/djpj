@@ -125,6 +125,7 @@ if not DEBUG:
 #add:AWS S3 ローカルでもS3使用
 # from djpj.aws.conf import *
 
+SECRET_KEY = os.environ.get('SECRET_KEY')
 MEDIA_URL   = '/media/' #メディアファイル配信URL
 
 #add: database

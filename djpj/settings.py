@@ -103,7 +103,7 @@ USE_TZ        = True
 # 🔗https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #collectstatic時の静的ファイル保存先
 STATIC_URL  = '/static/' #静的ファイル配信URL
-STATICFILES_DIRS = (
+STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -117,12 +117,12 @@ try:
 except ImportError:
     pass
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
 
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 #add:AWS S3 ローカルでもS3使用
 # from djpj.aws.conf import *
 

@@ -38,3 +38,7 @@ urlpatterns = [
 #🔗https://docs.djangoproject.com/ja/2.2/howto/static-files/#serving-files-uploaded-by-a-user-during-development
 if settings.DEBUG: # =True
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    from django.urls import re_path
+    from django.views.static import serve
+    urlpatterns += re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})

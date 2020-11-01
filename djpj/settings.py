@@ -3,7 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True #edit
+DEBUG = False #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -107,7 +107,8 @@ STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #add:Whitenoise
+WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'root') #add
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
 
@@ -121,7 +122,7 @@ except ImportError:
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
-SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 #add:AWS S3 ローカルでもS3使用
 from djpj.aws.conf import *

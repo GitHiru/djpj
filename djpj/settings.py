@@ -122,11 +122,9 @@ except ImportError:
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
-
+# 本番環境では未だDEBUG＝True
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
-#add:AWS S3 ローカルでもS3使用
-from djpj.aws.conf import *
+from djpj.aws.conf import * #add:AWS_S3
 # else:
 #     MEDIA_URL   = '/media/' #メディアファイル配信URL
 

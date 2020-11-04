@@ -3,8 +3,7 @@ import os #add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
-# DEBUG = False #edit
+DEBUG = False #edit
 
 ALLOWED_HOSTS = ['*'] #edit
 
@@ -41,7 +40,7 @@ ROOT_URLCONF = 'djpj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'diary/templates')], #edit
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], #edit
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,8 +121,8 @@ except ImportError:
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
-# 本番環境では未だDEBUG＝True
-SECRET_KEY = os.environ.get('SECRET_KEY')
+    # 本番環境では未だDEBUG＝True
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 from djpj.aws.conf import * #add:AWS_S3
 # else:
 #     MEDIA_URL   = '/media/' #メディアファイル配信URL

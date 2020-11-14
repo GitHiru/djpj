@@ -11,7 +11,7 @@ SITE_ID = 1 #add:sitemap
 
 # Application definition
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic', #add:Whitenoise(開発環境でも使用設定)
+    'whitenoise.runserver_nostatic',        #add:Whitenoise(開発環境でも使用設定)
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -20,13 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'diary.apps.DiaryConfig', #add:myapplication
     'django.contrib.sites', #add:sitemap
-    'django.contrib.sitemaps', #add:sitemap
-    'storages', #add:aws
+    'django.contrib.sitemaps',      #add:sitemap
+    'storages',         #add:aws
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', #add:Whitenoise
+    'whitenoise.middleware.WhiteNoiseMiddleware',       #add:Whitenoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -40,7 +40,7 @@ ROOT_URLCONF = 'djpj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], #edit
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],      #edit
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -48,7 +48,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'djpj.context_processors.common', #add:djpj/context_processors.py
+                'djpj.context_processors.common',       #add:djpj/context_processors.py
             ],
         },
     },
@@ -107,21 +107,20 @@ STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' #add:Whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'     #add:Whitenoise
 
-MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root') #メディアファイルの保存先
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root')       #メディアファイルの保存先
 
 
 # 本番とローカルの切替 #add:django-heroku
 try:
-    from .settings_local import *
+    from djpj.settings_local import *
 except ImportError:
     pass
 
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
-    # 本番環境では未だDEBUG＝True
     SECRET_KEY = os.environ.get('SECRET_KEY')
 from djpj.aws.conf import * #add:AWS_S3
 # else:

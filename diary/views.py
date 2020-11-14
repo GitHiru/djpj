@@ -19,9 +19,9 @@ class PostDetailView(DetailView):
 
 
 class IndexView(ListView):
-    model = Post
+    model         = Post
     template_name = 'diary/index.html'
-    paginate_by = 5
+    paginate_by   = 5
 
 
 class CategoryListView(ListView):
@@ -69,9 +69,9 @@ class TagPostView(ListView):
 
 
 class SearchPostView(ListView):
-    model = Post
+    model         = Post
     template_name = 'diary/search_post.html'
-    paginate_by = 5
+    paginate_by   = 5
 
     def get_queryset(self):
         query = self.request.GET.get('q', None)

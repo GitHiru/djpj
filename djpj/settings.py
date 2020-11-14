@@ -122,9 +122,9 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')
-from djpj.aws.conf import * #add:AWS_S3
-# else:
-#     MEDIA_URL   = '/media/' #メディアファイル配信URL
+    # from djpj.aws.conf import *         # add:AWS_S3
+else:
+    MEDIA_URL   = '/media/' # メディアファイル配信URL
 
 #add: database
 import dj_database_url #add

@@ -8,8 +8,11 @@
             <article class="m-card m-card--large">
                 <a href="{% url 'diary:post_detail' post.id %}">
                     <div class="m-card__img">
-                        {# <span class="img__bg" style="background-image:url({{ post.image.url }})"></span> #}
+                        {% if post.image %}
+                        <span class="img__bg" style="background-image:url({{ post.image.url }})"></span>
+                        {% else %}
                         <span class="img__bg" style="background-image:url(https://jp.heroku.com/assets/wallpapers/python/screen-c49382dd0a34719040755a37358c5fa79543494a387c5dc604f022ef0cfaf18c.png)"></span>
+                        {% endif %}
                     </div>
                     <div class="m-card__body">
                         <p class="date">
@@ -43,12 +46,13 @@
             <div class="l-panel__item heightLine">
                 <article class="m-card">
                     <a href="{% url 'diary:post_detail' post.id %}">
-                        {% if post.image %}
                         <div class="m-card__img">
-                            {# <span class="img__bg" style="background-image:url({{ post.image.url }})"></span> #}
+                            {% if post.image %}
+                            <span class="img__bg" style="background-image:url({{ post.image.url }})"></span>
+                            {% else %}
                             <span class="img__bg" style="background-image:url(https://jp.heroku.com/assets/wallpapers/python/screen-c49382dd0a34719040755a37358c5fa79543494a387c5dc604f022ef0cfaf18c.png)"></span>
+                            {% endif %}
                         </div>
-                        {% endif %}
                         <div class="m-card__body">
                             <p class="date">
                                 <i class="fas fa-clock"></i> {{ post.published_at|date }}

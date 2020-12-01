@@ -13,15 +13,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include #edit
-from django.conf import settings #add:media
-from django.conf.urls.static import static #add:media
+from django.urls import path, include    # edit
+from django.conf import settings    # add:media
+from django.conf.urls.static import static    # add:media
 # from django.contrib.staticfiles.urls import static #add:開発モード時静的ファイルを配信
-from .feeds import LatestPostsFeed #add:feed(rss)
-from django.contrib.sitemaps.views import sitemap #add:sitemap
-from .sitemaps import DiaryPostSitemap, StaticViewSitemap #add:sitemap
+from .feeds import LatestPostsFeed    # add:feed(rss)
+from django.contrib.sitemaps.views import sitemap    # add:sitemap
+from .sitemaps import DiaryPostSitemap, StaticViewSitemap    # add:sitemap
 
-#add:sitemap
+# add:sitemap
 sitemaps = {
     'diary': DiaryPostSitemap,
     'static': StaticViewSitemap,

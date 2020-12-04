@@ -143,3 +143,7 @@ DATABASES['default'].update(db_from_env)
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_SECONDS = 1000000
 # SECURE_FRAME_DENY = True
+
+# バックアップバッチ設定
+BACKUP_PATH = 'backup/'
+NUM_SAVED_BACKUP = 30

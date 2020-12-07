@@ -5,9 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False    # edit:deploy
 
-# DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消
-# https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
-
 ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
 
 SITE_ID = 1    # add:sitemap, flatpages
@@ -106,13 +103,10 @@ USE_TZ        = True
 
 # Staticfiles (CSS, JavaScript, Images)
 # 🔗https://docs.djangoproject.com/en/3.1/howto/static-files/
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # collectstatic時の静的ファイル保存先
-#STATIC_URL  = '/static/'    # 静的ファイル配信URL
-#STATIC_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    )
-
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'    # add:Whitenoise
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # collectstatic時の静的ファイル保存先
+STATIC_URL  = '/static/'    # 静的ファイル配信URL
+STATIC_DIRS = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'    # add:Whitenoise
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root')     # メディアファイルの保存先
 
@@ -123,7 +117,11 @@ try:
 except ImportError:
     pass
 
-if not DEBUG:
+# if not DEBUG:
+# DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消
+# https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
+DEBUG = True
+if DEBUG:
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -151,3 +149,43 @@ DATABASES['default'].update(db_from_env)
 # バックアップバッチ設定
 BACKUP_PATH = 'backup/'
 NUM_SAVED_BACKUP = 30
+
+# ロギング設定
+LOGGING ={
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    # ロガー設定
+    'loggers': {
+        # Djangoが利用するロガー
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        # アプリケーションが利用するロガー
+        'application': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+    # ハンドラの設定
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'dev',
+        },
+    },
+    # フォーマッタの設定
+    'formatters': {
+        'dev': {
+            'format': '\t'.join([
+                '%(asctime)s',
+                '[%(levelname)s]',
+                '%(pathname)s(Line:%(lineno)d)',
+                '%(message)s'
+            ])
+        },
+    }
+
+}

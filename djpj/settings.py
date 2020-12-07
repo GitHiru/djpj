@@ -113,7 +113,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root')     # メディアファイルの保存先
 
-DEBUG = True
 
 # 本番とローカルの切替 #add:django-heroku
 try:
@@ -121,7 +120,9 @@ try:
 except ImportError:
     pass
 
-if not DEBUG:
+DEBUG = True
+if DEBUG:
+# if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')

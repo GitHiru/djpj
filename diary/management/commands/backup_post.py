@@ -32,11 +32,12 @@ class Command(BaseCommand):
             # データ部分の書き込み
             for post in posts:
                 writer.writerow([
+                    str(post.id),
                     str(post.category),
-                    str(post.tags),
-                    post.title,
-                    post.description,
-                    post.content,
+                    # str(post.tags),
+                    str(post.title),
+                    str(post.description),
+                    str(post.content),
                     str(post.created_at),
                     str(post.updated_at),
                     str(post.published_at),

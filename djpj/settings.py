@@ -1,13 +1,13 @@
 from pathlib import Path
-import os #add
+import os    # add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False #edit
+DEBUG = False    # edit:deploy
 
-ALLOWED_HOSTS = ['*'] #edit
+ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
 
-SITE_ID = 1 #add:sitemap
+SITE_ID = 1    # add:sitemap, flatpages
 
 # Application definition
 INSTALLED_APPS = [
@@ -18,8 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',    # add:flatpages
     'diary.apps.DiaryConfig',    # add:myapplication
-    'django.contrib.sites',    # add:sitemap
+    'django.contrib.sites',    # add:sitemap, flatpages
     'django.contrib.sitemaps',    # add:sitemap
     'storages',    # add:aws
     'gunicorn',    # add:gunicorn

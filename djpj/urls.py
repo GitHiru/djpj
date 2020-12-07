@@ -20,18 +20,21 @@ from django.conf.urls.static import static    # add:media
 from .feeds import LatestPostsFeed    # add:feed(rss)
 from django.contrib.sitemaps.views import sitemap    # add:sitemap
 from .sitemaps import DiaryPostSitemap, StaticViewSitemap    # add:sitemap
+from django.contrib.flatpages.sitemaps import FlatPageSitemap    # add:flatpages
 
 # add:sitemap
 sitemaps = {
     'diary': DiaryPostSitemap,
     'static': StaticViewSitemap,
+    'flatpages': FlatPageSitemap,    # add:flatpages
 }
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('diary.urls')), #add:app
-    path('latest/feed/', LatestPostsFeed()), #add:feed(rss)
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'), #add:sitemap
+    path('', include('diary.urls')),    # add:app
+    path('latest/feed/', LatestPostsFeed()),    # add:feed(rss)
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),    # add:sitemap
+    path('pages/', include('django.contrib.flatpages.urls')),    # add:flatpages
 ]
 
 #add:media

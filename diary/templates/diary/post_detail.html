@@ -1,11 +1,10 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block title %}{{ object.title}} | {{ block.super }}{% endblock %}
 {% block description %}{% endblock %}
 {% block content%}
-{# <!-- 投稿記事 --> #}
-
 {#<!-- detail css -->#}
 <link rel="stylesheet" href="{% static 'diary/css/details.css' %}">
 

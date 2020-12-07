@@ -1,0 +1,50 @@
+@charset 'UTF-8';
+/*!
+ * ress.css 窶｢ v1.1.2
+ * MIT License
+ * github.com/filipelinhares/ress
+ */
+/* # =================================================================
+   # Global selectors
+   # ================================================================= */
+
+.l-wrap.main{
+	margin: 120px auto 90px;
+}
+.content.inner .sec{
+	margin-top: 30px;
+}
+.content.inner .sec p{
+	font-size: 16px;
+	margin-top: 20px;
+	letter-spacing: 0.15em;
+	line-height: 1.8em;
+}
+.content.inner h4{
+	font-size: 16px
+}
+.content.inner a{
+	color: #4da1b4;
+}
+.content.inner .contact-list li{
+	list-style: disc;
+	margin: 10px 0 0 20px;
+	line-height: 1em;
+}
+
+@media all and (max-width: 720px){
+	.l-wrap.main{
+	  margin: 60px auto 45px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+.ad-area{
+	padding: 40px 0;
+	background: #e9edf0;
+}
+@media all and (max-width: 720px){
+  .ad-area{
+    padding: 20px 0;
+  }
+}

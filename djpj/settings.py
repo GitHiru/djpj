@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False    # edit:deploy
 
-DEBUG_PROPAGATE_EXCEPTIONS = False
+# DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消
 # https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
 
 ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
@@ -106,13 +106,13 @@ USE_TZ        = True
 
 # Staticfiles (CSS, JavaScript, Images)
 # 🔗https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # collectstatic時の静的ファイル保存先
-STATIC_URL  = '/static/'    # 静的ファイル配信URL
-STATIC_DIRS = (
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    # collectstatic時の静的ファイル保存先
+#STATIC_URL  = '/static/'    # 静的ファイル配信URL
+#STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'    # add:Whitenoise
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'    # add:Whitenoise
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root')     # メディアファイルの保存先
 

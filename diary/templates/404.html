@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ flatpage.title }} | {{ block.super }}{% endblock %}
+{% block description %}{% endblock %}
+{% block content %}
+{#<!-- 404 css -->#}
+<link rel="stylesheet" href="{% static 'diary/css/404.css' %}">
+
+<div class="main-area l-wrap">
+    <div class="l-panel l-panel--mv">
+        <div class="l-panel__item l-panel__item--large">
+            <article class="m-card m-card--large">
+                <div class="m-card__img">
+                    <span class="img__bg" style="background-image:url(https://jp.heroku.com/assets/wallpapers/python/screen-c49382dd0a34719040755a37358c5fa79543494a387c5dc604f022ef0cfaf18c.png)"></span>
+                </div>
+            </article>
+        </div>{#<!-- .l-panel__item // -->#}
+    </div>{#<!-- .l-panel // -->#}
+</div>{#<!-- .main-area // -->#}
+
+<div class="l-wrap main">
+    <div class="l-panel">
+        <div class="content inner">
+            <div class="sec">
+                <p>このページは利用できません。（Notfound:404）</p>
+                <a href="#">Topはこちら＞</a>
+            </div>{#<!-- .sec //-->#}
+        </div>{#<!-- .inner // -->#}
+    </div>{#<!-- .l-panel // -->#}
+</div>{#<!-- .l-wrap // -->#}
+
+
+<div class="l-wrap main">
+    <div class="l-panel">
+        <div class="content inner">
+            <div class="sec">
+                <h4>CONTACT</h4>
+                <ul class="contact-list">
+                    <li><a href="" taarget="_blank">公式Twitter</a></li>
+                    <li><a href="" taarget="_blank">管理者へメール</a></li>
+                </ul>
+            </div>{#<!-- .sec //-->#}
+        </div>{#<!-- .inner // -->#}
+    </div>{#<!-- .l-panel // -->#}
+</div>{#<!-- .l-wrap // -->#}
+
+
+
+{% endblock %}

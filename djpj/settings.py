@@ -3,7 +3,7 @@ import os    # add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False    # edit:deploy
+# DEBUG = False    # edit:deploy
 
 ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
 
@@ -113,6 +113,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'staticfiles', 'media_root')     # メディアファイルの保存先
 
+DEBUG = True
 
 # 本番とローカルの切替 #add:django-heroku
 try:

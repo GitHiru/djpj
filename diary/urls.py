@@ -1,13 +1,13 @@
 from django.urls import path
 from diary.views import (
-    IndexView,
-    PostDetailView,
-    CategoryPostView,
-    TagPostView,
-    CategoryListView,
-    TagListView,
-    SearchPostView,
-    )
+                            IndexView,
+                            PostDetailView,
+                            CategoryPostView,
+                            TagPostView,
+                            CategoryListView,
+                            TagListView,
+                            SearchPostView,
+                        )
 
 
 app_name = 'diary'

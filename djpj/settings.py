@@ -117,17 +117,16 @@ try:
 except ImportError:
     pass
 
-# if not DEBUG:
-# DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消
-# https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
-DEBUG = True
-if DEBUG:
+
+if not DEBUG:
+# DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消 # cf. https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
+# if DEBUG:    # default setting
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    from djpj.aws.conf import *         # add:AWS_S3
+    from djpj.aws.conf import *    # add:AWS_S3
 # else:
-#     MEDIA_URL   = '/media/' # メディアファイル配信URL
+#     MEDIA_URL   = '/media/'     # メディアファイル配信URL
 
 #add: database
 import dj_database_url #add
@@ -187,5 +186,4 @@ LOGGING ={
             ])
         },
     }
-
 }

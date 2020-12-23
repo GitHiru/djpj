@@ -26,12 +26,12 @@ class IndexView(ListView):
 
 class CategoryListView(ListView):
     queryset = Category.objects.annotate(
-        num_posts=Count('post', filter=Q(post__is_public=True)))
+        num_posts = Count('post', filter=Q(post__is_public=True)))
 
 
 class TagListView(ListView):
     queryset = Tag.objects.annotate(
-        num_posts=Count('post', filter=Q(post__is_public=True)))
+        num_posts = Count('post', filter=Q(post__is_public=True)))
 
 
 class CategoryPostView(ListView):

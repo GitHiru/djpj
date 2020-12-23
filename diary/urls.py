@@ -14,6 +14,7 @@ app_name = 'diary'
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    # path('post/<str:category_slug>/', PostDetailView.as_view(), name='post_detail'),
     path('category/<str:category_slug>/',CategoryPostView.as_view(), name='category_post'),
     path('tag/<str:tag_slug>/', TagPostView.as_view(), name='tag_post'),
     path('categories/', CategoryListView.as_view(), name='category_list'),

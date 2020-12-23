@@ -3,7 +3,7 @@ import os    # add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True    # edit:deploy
+DEBUG = False    # edit:deploy
 
 ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
 
@@ -118,15 +118,16 @@ except ImportError:
     pass
 
 
-# if not DEBUG:
+if not DEBUG:    # DEBUG=False
 # DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消 # cf. https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
-if DEBUG:    # default setting
+# if DEBUG:    # DEBUG=TRUE
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')
     from djpj.aws.conf import *    # add:AWS_S3
 # else:
 #     MEDIA_URL   = '/media/'     # メディアファイル配信URL
+
 
 #add: database
 import dj_database_url #add

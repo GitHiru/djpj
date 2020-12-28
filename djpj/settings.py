@@ -3,7 +3,7 @@ import os    # add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False    # edit:deploy
+DEBUG = True    # edit:deploy
 
 ALLOWED_HOSTS = ['*']     # edit:deploy(heroku)
 
@@ -118,9 +118,9 @@ except ImportError:
     pass
 
 
-if not DEBUG:    # DEBUG=False
+# if not DEBUG:    # DEBUG=False
 # DEBUG_PROPAGATE_EXCEPTIONS = False    # add:500error解消 # cf. https://docs.djangoproject.com/ja/3.1/ref/settings/#s-debug-propagate-exceptions
-# if DEBUG:    # DEBUG=TRUE
+if DEBUG:    # DEBUG=TRUE
     import django_heroku
     django_heroku.settings(locals())
     SECRET_KEY = os.environ.get('SECRET_KEY')

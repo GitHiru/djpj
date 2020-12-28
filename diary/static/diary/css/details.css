@@ -35,6 +35,10 @@
   text-decoration: none;
 }
 
+.l-breadcrumbs {
+    margin-top: 20px;
+}
+
 @media all and (max-width: 720px){
 	.detail.l-wrap{
 		padding: 0 20px;
